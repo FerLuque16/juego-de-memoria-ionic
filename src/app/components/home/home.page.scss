@@ -35,19 +35,22 @@ ion-toolbar{
     --background:#ffd691;
 }
 
-
-.card{
-    // background-color: #d1c007;
-    background-color: #ffd691;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    flex-direction: column;
-    
+.flipped {
+    transform: rotateY(180deg);
 }
 
-.carta{
+
+.contenedor-carta-animal{
+    padding: 5px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.carta-animal{
     height: 250px !important;
     width: 45%;
     display: flex;
@@ -63,7 +66,7 @@ ion-toolbar{
     
 }
 
-.flip-container {
+.flip-container-animal {
     width: 100%;
     height: 100%;
     position: relative;
@@ -73,7 +76,7 @@ ion-toolbar{
     // margin-bottom: 15px;
   }
 
-.flipper {
+.flipper-animal {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -85,8 +88,8 @@ ion-toolbar{
     
 }
 
-.front,
-.back {
+.front-animal,
+.back-animal {
     width: 100%;
     height: 275px;
     position: absolute;
@@ -102,43 +105,214 @@ ion-toolbar{
     transform-style: preserve-3d;
 }
 
-.front {
+.front-animal {
     background-color: blue;
     
 }
 
-.back {
+.back-animal {
     background-color: red;
     transform: rotateY(180deg);
 }
 
-.flipped {
+@media (min-width:667px) {
+    .carta-animal{
+        width: 30%;
+        height: 45% !important;
+        padding: 0;
+    }
+    .flipper-animal{
+        height: 45%;
+    }
+    .flip-container-animal{
+        height: 40%;
+    }
+    .front-animal,
+    .back-animal{
+        height: 130px;
+    }
+    .contenedor-carta-animal{
+        padding-bottom: 0px;
+    } 
+}
+
+
+//HERRAMIENTAS
+
+.contenedor-cartas-herramienta{
+    padding: 5px;
+    height: 100%;
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.carta-herramienta{
+    height: 50px !important;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    flex-direction: column;
+    background-color: transparent;
+    margin: 0 7px 0 7px;
+    // margin: 0 15px 0 15px;
+    .back{
+        img{
+            height: 50px;
+        }
+    }
+    
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    // margin-top: 150px;
+    
+}
+.flip-container-herramienta {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    
+    // margin-bottom: 15px;
+  }
+
+.flipper-herramienta {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.front-herramienta,
+.back-herramienta {
+    width: 100%;
+    height: 150px;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+        
+    img{
+        height: 50%;
+    }
+    transform-style: preserve-3d;
+}
+
+.front-herramienta {
+    background-color: blue;
+    
+}
+
+.back-herramienta {
+    background-color: red;
     transform: rotateY(180deg);
 }
 
-// .adelante, .atras{
-//     width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   backface-visibility: hidden;
-//   transition: transform 0.6s;
-// }
+@media (min-width:667px) {
+    .carta-herramienta{
+        width: 18%;
+    }
+    .front-herramienta,
+    .back-herramienta{
+        height: 150px;
+    } 
+}
 
-// .front {
-//   background-color: blue;
-//   transform: rotateY(0deg);
-// }
+//FRUTAS
 
-// .back {
-//   background-color: red;
-//   transform: rotateY(180deg);
-// }
+.contenedor-cartas-fruta{
+    padding: 5px;
+    height: 100%;
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
 
-// .card.flipped .front {
-//   transform: rotateY(180deg);
-// }
+.carta-fruta{
+    height: 50px !important;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    flex-direction: column;
+    background-color: transparent;
+    margin: 0 7px 0 7px;
+    // margin: 0 15px 0 15px;
+    .back{
+        img{
+            height: 50px;
+        }
+    }
+    
+}
+.flip-container-fruta {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    
+    // margin-bottom: 15px;
+  }
 
-// .card.flipped .back {
-//   transform: rotateY(0deg);
-// }
+.flipper-fruta {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.front-fruta,
+.back-fruta {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+        
+    img{
+        height: 50%;
+    }
+    transform-style: preserve-3d;
+}
+
+.front-fruta {
+    background-color: blue;
+    
+}
+
+.back-fruta {
+    background-color: red;
+    transform: rotateY(180deg);
+}
+
+@media (min-width:667px) {
+    .carta-fruta{
+        width: 23%;
+    }
+    .front-fruta,
+    .back-fruta{
+        height: 75px;
+    } 
+}
 
