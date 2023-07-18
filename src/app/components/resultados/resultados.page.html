@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Resultados</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="outline" (click)="volver()">
+        Volver
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">resultados</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="spinner" *ngIf="cargando">
+    <ion-spinner name="circular" ></ion-spinner>
+  </div>
+
+  <div class="contenedor">
+    <h2 class="ion-text-center">Seleccione la dificultad</h2>
+
+  <div class="button-container">
+    <ion-button (click)="elegirDificultad('facil')">Fácil</ion-button>
+    <ion-button (click)="elegirDificultad('medio')">Medio</ion-button>
+    <ion-button (click)="elegirDificultad('dificil')">Difícil</ion-button>
+
+  </div>
+
+  <div class="resultados-container" *ngIf="nivel == 'facil'">
+    <h1 class="ion-text-center">Nivel Fácil</h1>
+    <ion-card class="card" *ngFor="let item of resultadosFacil" >
+      <ion-card-header>
+        <ion-card-title>{{item.jugador}}</ion-card-title>
+        <ion-card-subtitle>Nivel {{item.nivel | titlecase}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Fecha: {{item.fecha}}</h2>
+        <h2>Tiempo : {{item.tiempo}}</h2>
+      </ion-card-content>
+    </ion-card>
+  </div>
+ 
+  <div class="resultados-container" *ngIf="nivel == 'medio'">
+    <h1 class="ion-text-center">Nivel Medio</h1>
+    <ion-card class="card" *ngFor="let item of resultadosMedio" >
+      <ion-card-header>
+        <ion-card-title>{{item.jugador}}</ion-card-title>
+        <ion-card-subtitle>Nivel {{item.nivel | titlecase}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Fecha: {{item.fecha}}</h2>
+        <h2>Tiempo : {{item.tiempo}}</h2>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  
+  <div class="resultados-container" *ngIf="nivel == 'dificil'">
+    <h1 class="ion-text-center">Nivel Difícil</h1>
+    <ion-card class="card" *ngFor="let item of resultadosDificil" >
+      <ion-card-header>
+        <ion-card-title>{{item.jugador}}</ion-card-title>
+        <ion-card-subtitle>Nivel {{item.nivel | titlecase}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Fecha: {{item.fecha}}</h2>
+        <h2>Tiempo : {{item.tiempo}}</h2>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  </div>
+
+
+  
+
+  
+  
+
+  
+</ion-content>

@@ -8,7 +8,47 @@
     // background-size: cover;
     // z-index: -1;
 }
+.contenedor-niveles{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    // background-color: #d1c007;
+    background-color: #5fd750;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
+    height: 30%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    flex-direction: column;
+    margin: 10px;
+    h2{
+        text-align: center;
+    }
+}
+
+.card:active{
+    transform: scale(0.95);
+}
+
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    
+}
 
 .contenedor{
     padding: 5px;
@@ -17,8 +57,16 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    
+    background-color: #787878;
 
+}
+
+ion-title{
+    font-size: 16px;
+}
+
+ion-button{
+    font-size: 10px !important;
 }
 button{
     border-radius: 5px;
@@ -30,9 +78,8 @@ button{
 }
 
 
-
 ion-toolbar{
-    --background:#ffd691;
+    --background:#5fd750;
 }
 
 .flipped {
@@ -51,7 +98,7 @@ ion-toolbar{
 }
 
 .carta-animal{
-    height: 250px !important;
+    height: 200px !important;
     width: 45%;
     display: flex;
     justify-content: center;
@@ -91,7 +138,7 @@ ion-toolbar{
 .front-animal,
 .back-animal {
     width: 100%;
-    height: 275px;
+    height: 200px;
     position: absolute;
     backface-visibility: hidden;
     display: flex;
@@ -194,7 +241,7 @@ ion-toolbar{
 .front-herramienta,
 .back-herramienta {
     width: 100%;
-    height: 150px;
+    height: 120px;
     position: absolute;
     backface-visibility: hidden;
     display: flex;
@@ -282,7 +329,7 @@ ion-toolbar{
 .front-fruta,
 .back-fruta {
     width: 100%;
-    height: 100px;
+    height: 75px;
     position: absolute;
     backface-visibility: hidden;
     display: flex;

@@ -8,7 +8,11 @@ import { Router } from '@angular/router';
 })
 export class SplashPage implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router) {
+    setTimeout(() => {
+      this.router.navigateByUrl('auth',{replaceUrl : true})
+    }, 3000);
+   }
 
   ngOnInit() {
   }

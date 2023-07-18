@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { getElement } from 'ionicons/dist/types/stencil-public-runtime';
+import { AuthService } from 'src/app/services/auth.service';
+import { ResultadosService } from 'src/app/services/resultados.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +11,19 @@ import { getElement } from 'ionicons/dist/types/stencil-public-runtime';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+
+  
+
+  seconds : number = 0;
+  intervalId: any;
+  aciertos : number = 0;
+  cantidadPares : number = 0;
+  tiempoJugador : any;
+
+  jugarOtraVez:boolean = false;
+
+  cargando:boolean = false;
 
 
   cartas:any = [];
@@ -152,12 +169,12 @@ export class HomePage implements OnInit {
 
   cartasArray:any = [];
 
-  tipoCartas:string = '';
+  nivel:string = '';
 
   cartaAnterior: number = 0;
   // cartaActuaL: number = 0;
   primerEntrada: boolean = true;
-  constructor() {
+  constructor(public auth:AuthService, public resultadosService:ResultadosService, private router:Router) {
 
     
    }
@@ -166,32 +183,65 @@ export class HomePage implements OnInit {
 
     // console.log(this.cartas);
     // this.cartas.sort(()=> Math.random() - 0.5);
-    this.cartas = this.cartasAnimales;
+    // this.cartas = this.cartasAnimales;
     // this.cartas = this.cartasHerramientas;
     // this.cartas = this.cartasFrutas;
-    this.cartas.sort(()=> Math.random() - 0.5);
+    // this.cartas.sort(()=> Math.random() - 0.5);
     // console.log(this.cartas);
 
   }
 
   elegirNivel(nivel:number){
     switch (nivel) {
+      case 0:
+        this.aciertos = 0;
+        this.cantidadPares = 0;
+        this.stopTimer();
+        this.nivel = '';
+        this.cartas = [];
+        this.jugarOtraVez = false;
+        break;
       case 1:
-        this.tipoCartas = 'animales'
-        this.cartas = this.cartasAnimales;
-        this.cartas.sort(()=> Math.random() - 0.5);
+        this.cargando = true;
+        this.nivel = '_';
+        setTimeout(() => {
+          this.nivel = 'fácil';
+          this.cartas = this.cartasAnimales;
+          this.cantidadPares = 3;
+          this.cartas.sort(()=> Math.random() - 0.5);
+          this.startTimer();
+          this.cargando = false;
+          
+        }, 1000);
+        
 
         break;
       case 2:
-        this.tipoCartas = 'herramientas';
-        this.cartas = this.cartasHerramientas;
-        this.cartas.sort(()=> Math.random() - 0.5);
+        this.cargando = true;
+        this.nivel = '_';
+        setTimeout(() => {
+          this.nivel = 'medio';
+          this.cartas = this.cartasHerramientas;
+          this.cantidadPares = 5;
+          this.cartas.sort(()=> Math.random() - 0.5);
+          this.startTimer();
+          this.cargando = false;
+        }, 1000);
+        
 
         break;
       case 3:
-        this.tipoCartas = 'frutas';
-        this.cartas = this.cartasFrutas;
-        this.cartas.sort(()=> Math.random() - 0.5);
+        this.cargando = true;
+        this.nivel = '_';
+        setTimeout(() => {
+          this.nivel = 'difícil';
+          this.cartas = this.cartasFrutas;
+          this.cantidadPares = 8;
+          this.cartas.sort(()=> Math.random() - 0.5);
+          this.startTimer();
+          this.cargando = false;
+        }, 1000);
+        
         break;
       default:
         break;
@@ -275,7 +325,14 @@ export class HomePage implements OnInit {
 
         element1!.parentNode?.removeAllListeners!();
         element2!.parentNode?.removeAllListeners!();
-
+        this.aciertos++;
+        if(this.aciertos == this.cantidadPares){
+          this.tiempoJugador = this.formatTime();
+          clearInterval(this.intervalId);                  
+          setTimeout(() => {
+            this.win()
+          }, 1000);
+        }
       }
 
       this.cartasArray = [];
@@ -298,4 +355,107 @@ export class HomePage implements OnInit {
     
   }
 
+  startTimer() {
+    this.intervalId = setInterval(() => {
+      this.updateTimer();
+    }, 1000);
+  }
+
+  updateTimer() {
+    this.seconds++;
+  }
+
+  formatTime() {
+    const minutes = Math.floor(this.seconds / 60);
+    const remainingSeconds = this.seconds % 60;
+    return `${this.padTime(minutes)}:${this.padTime(remainingSeconds)}`;
+  }
+
+  padTime(time: number) {
+    return time < 10 ? `0${time}` : time;
+  }
+
+  stopTimer(){
+    this.seconds = 0;
+    clearInterval(this.intervalId);
+  }
+
+  win(){
+    Swal.fire({
+      title: '¡Ganaste!',
+      text: `Tu tiempo: ${this.tiempoJugador}`,
+      confirmButtonText: "Elegir otra dificultad",
+      confirmButtonColor: '#3880ff',
+      background: '#5fd750',
+      color: '#000000',
+      heightAuto:false,
+      cancelButtonColor: '#ff9400',
+      showCancelButton: true,
+      cancelButtonText: 'Ir a Resultados'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.guardarDatos();
+        this.elegirNivel(0);
+        this.stopTimer();
+        this.jugarOtraVez = false;
+      }else{
+        
+        
+        this.guardarDatos();
+        this.stopTimer();
+        this.router.navigateByUrl('resultados');
+        // this.jugarOtraVez = true;
+        // let nivel = this.nivel;
+        this.elegirNivel(0);
+
+        // switch (nivel) {
+        //   case 'fácil':
+        //     this.elegirNivel(1);
+        //     break;
+        //   case 'medio':
+        //     this.elegirNivel(2);
+        //     break;
+        //   case 'difícil':
+        //     this.elegirNivel(3);
+        //     break;
+        
+        //   default:
+        //     break;
+        // }
+        
+      }
+    });
+  }
+
+  guardarDatos(){
+    const date = new Date();    
+    //para que quede DD/MM/YYYY
+    const mes = date.getMonth()+1 < 10 ? `0${date.getMonth()+1}` : date.getMonth()+1;
+    const fecha =`${date.getDate()}/${mes}/${date.getFullYear()}`;
+
+    const jugador = this.auth.actualEmail;
+    // console.log(fecha, this.tiempoJugador,jugador,this.seconds);
+    console.log('Fecha:',fecha,'Tiempo Jugador:', this.tiempoJugador,'Segundos:',this.seconds);
+    //guardar los datos,guardo segundos porque creo que para ordenar va a ser mas facil con ese dato
+    const data = {
+        fecha:fecha,
+        tiempo:this.tiempoJugador,
+        jugador : jugador,
+        segundos: this.seconds,
+        nivel: this.nivel
+      }
+    this.resultadosService.guardarDatos(data);
+    
+  }
+
+  cerrarSesion(){
+
+    console.log('Entré');
+    this.auth.logout();
+    this.router.navigateByUrl('auth');
+  }
+
+  
+
+ 
 }

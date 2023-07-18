@@ -1,0 +1,39 @@
+*{
+    font-size: 12px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+ion-content{
+    --ion-background-color:#787878;
+}
+ion-toolbar{
+    --background:#5fd750
+}
+
+ion-card-subtitle{
+    color: black;
+}
+
+.card{
+    background-color: #5fd750;
+    color: black;
+}
+
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    
+}
